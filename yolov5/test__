@@ -1,0 +1,7 @@
+import json
+# anus_images = 
+f = json.load(open('./yolov5/info.json'))['crawled_images']
+
+print(list(f[0].values()))
+
+print(",".join(list(f[0].keys())))

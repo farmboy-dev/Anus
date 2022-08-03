@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifier</title>
+</head>
+<body>
+<h1>Labeling!</h1>
+    <center><h3>anus image</h3>
+    <img src="{{ url_for('static', filename='images/' + image) }}" width="320" height="320">
+    <form method='post'>
+    <input type="submit" name="submit_button" value="Quality: O | Problem: O">
+    <input type="submit" name="submit_button" value="Quality: O | Problem: X">
+    <input type="submit" name="submit_button" value="Quality: X | Problem: O">
+    <input type="submit" name="submit_button" value="Quality: X | Problem: X">
+    <input type="submit" name="submit_button" value="Delete">
+    </form>  
+    </center>
+</body>
+</html>
