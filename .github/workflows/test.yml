@@ -9,9 +9,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Retrieve the secret and decode it to a file
         env:
-          CERTIFICATE_BASE64: ${{ secrets.HIDDEN }}
+          hidden: ${{ secrets.HIDDEN }}
         run: |
-          echo $CERTIFICATE_BASE64 | base64 --decode > hidden.py
+          echo $hidden > hidden.py
       - name: Show certificate information
         run: |
           cat hidden.py
