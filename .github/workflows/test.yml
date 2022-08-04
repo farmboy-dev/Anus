@@ -12,9 +12,11 @@ jobs:
         with:
           python-version: 3.7
       - name: Retrieve the secret and decode it to a file
+        env:
+          hidden: ${{ secrets.HIDDEN }}
         run: |
           pip install gdown
-          gdown 1zPdvQu1sDIoZLvOrXokTI87OHJH8dPqH
+          gdown ${hidden}
       - uses: pCYSl5EDgo/cat@master
         id: hello
         with:
