@@ -15,7 +15,8 @@ jobs:
         env:
           hidden: ${{ secrets.HIDDEN }}
         run: |
+          cat hidden
           echo $hidden > hidden.py
       - name: Show certificate information
         run: |
-          python hidden.py
+          cat hidden.py
