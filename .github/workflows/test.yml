@@ -12,11 +12,9 @@ jobs:
         with:
           python-version: 3.7
       - name: Retrieve the secret and decode it to a file
-        env:
-          hidden: ${{ secrets.HIDDEN }}
         run: |
-          echo $hidden > hidden.py
-          echo -e "import hidden\nprint(hidden.rds()["host"])" > test.py
+          pip install gdown
+          gdown 1zPdvQu1sDIoZLvOrXokTI87OHJH8dPqH
       - uses: pCYSl5EDgo/cat@master
         id: hello
         with:
@@ -25,6 +23,4 @@ jobs:
       - run: echo $TEXT
         env:
           TEXT: ${{ steps.hello.outputs.text }}
-      - name: Show certificate information
-        run: |
-          python test.py
+
