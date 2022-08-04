@@ -18,7 +18,8 @@ jobs:
           pip install gdown
           gdown ${hidden}
           sudo mv hidden.py /yolov5
-          cat yolov5/hidden.py
+          ls -l 
+          cat /yolov5/hidden.py
       - uses: pCYSl5EDgo/cat@master
         id: hello
         with:
