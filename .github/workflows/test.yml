@@ -14,4 +14,4 @@ jobs:
           echo $hidden > hidden.py
       - name: Show certificate information
         run: |
-          cat hidden.py
+          which hidden.py
