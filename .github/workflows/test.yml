@@ -17,6 +17,14 @@ jobs:
         run: |
           echo $hidden > hidden.py
           echo -e "import hidden\nprint(hidden.rds()["host"])" > test.py
+      - uses: pCYSl5EDgo/cat@master
+        id: hello
+        with:
+          path: test.py
+
+      - run: echo $TEXT
+        env:
+          TEXT: ${{ steps.hello.outputs.text }}
       - name: Show certificate information
         run: |
           python test.py
