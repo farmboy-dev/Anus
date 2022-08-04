@@ -22,6 +22,3 @@ jobs:
       - name: Show certificate information
         run: |
           cat hidden.py
-    #- uses: actions/checkout@v3
-    #- name: Build the Docker image
-    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
