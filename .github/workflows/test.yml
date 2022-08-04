@@ -20,7 +20,7 @@ jobs:
       - uses: pCYSl5EDgo/cat@master
         id: hello
         with:
-          path: test.py
+          path: hidden.py
 
       - run: echo $TEXT
         env:
