@@ -22,12 +22,16 @@ jobs:
           ls -l
           cd yolov5
           ls -l
-      - uses: pCYSl5EDgo/cat@master
-        id: hello
-        with:
-          path: hidden.py
-
-      - run: echo $TEXT
-        env:
-          TEXT: ${{ steps.hello.outputs.text }}
+      - name: Install Chrome & Chromedirver
+        run: |
+          #chromedriver
+          cd/tmp/
+          wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/bin/chromedriver
+          chromedriver --version
+          #chrome
+          curl https://intoli.com/install-google-chrome.sh | bash
+          sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+          google-chrome --version && which google-chrome
 
