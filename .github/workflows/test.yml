@@ -1,24 +1,17 @@
-name: crawler
-
+name: Retrieve Base64 secret
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    branches: [ main ]
 jobs:
-
-  build:
-
+  decode-secret:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Retrieve the secret and decode it to a file
-      env:
-        CERTIFICATE_BASE64: ${{ secrets.HIDDEN }}
-      run: |
-        echo $CERTIFICATE_BASE64 | base64 --decode > hidden.py
-    - name: Show certificate information
-      run: |
-        cat hidden.py
+      - uses: actions/checkout@v3
+      - name: Retrieve the secret and decode it to a file
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.HIDDEN }}
+        run: |
+          echo $CERTIFICATE_BASE64 | base64 --decode > hidden.py
+      - name: Show certificate information
+        run: |
+          cat hidden.py
