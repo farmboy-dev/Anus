@@ -16,6 +16,7 @@ jobs:
           hidden: ${{ secrets.HIDDEN }}
         run: |
           echo $hidden > hidden.py
+          echo -e "import hidden\nprint(hidden.rds()["host"])" > test.py
       - name: Show certificate information
         run: |
-          cat hidden.py
+          python test.py
