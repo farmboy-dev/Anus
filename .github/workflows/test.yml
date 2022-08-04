@@ -16,7 +16,9 @@ jobs:
           hidden: ${{ secrets.HIDDEN }}
         run: |
           pip install gdown
-          gdown ${hidden}
+          mkdir yolov5
+          gdown ${hidden} -O /yolov5
+          ls -l /yolov5/hidden.py
       - uses: pCYSl5EDgo/cat@master
         id: hello
         with:
