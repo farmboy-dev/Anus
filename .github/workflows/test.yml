@@ -25,7 +25,7 @@ jobs:
       - name: Install Chrome & Chromedirver
         run: |
           #chromedriver
-          cd/tmp/
+          cd /tmp/
           wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/bin/chromedriver
