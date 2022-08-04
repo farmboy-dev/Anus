@@ -26,12 +26,15 @@ jobs:
         run: |
           #chromedriver
           cd /tmp/
+          pwd
           wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
+          ls -l
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/bin/chromedriver
+          ls -l /usr/bin/
           chromedriver --version
           #chrome
-          curl https://intoli.com/install-google-chrome.sh | bash
-          sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
-          google-chrome --version && which google-chrome
+          #curl https://intoli.com/install-google-chrome.sh | bash
+          #sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+          #google-chrome --version && which google-chrome
 
