@@ -18,21 +18,22 @@ jobs:
           pip install gdown
           gdown ${hidden}
           sudo mv hidden.py yolov5
-          pwd
-          ls -l
-          cd yolov5
-          ls -l
-      - name: Install Chromedirver
+      - name: Install Chromedirver & chrome
         run: |
-          #chromedriver
+          # chromedriver
           cd /tmp/
-          wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
+          wget -q https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/bin/chromedriver
           chromedriver --version
+          # chrome
           sudo apt-get -y install google-chrome-stable
           sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
           google-chrome --version && which google-chrome
+      - name: Install requirements
+        run: |
+          pip install requirements.txt
+       
           
         
        
