@@ -17,7 +17,7 @@ jobs:
         run: |
           pip install gdown
           gdown ${hidden}
-          sudo mv hidden.py /yolov5
+          sudo mv hidden.py yolov5
           pwd
           ls -l
           cd yolov5
