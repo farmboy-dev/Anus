@@ -30,7 +30,7 @@ jobs:
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/bin/chromedriver
           chromedriver --version
-          curl https://intoli.com/install-google-chrome.sh
+          sudo curl https://intoli.com/install-google-chrome.sh | bash
           sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
           google-chrome --version && which google-chrome
           
