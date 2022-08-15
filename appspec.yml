@@ -1,9 +1,17 @@
 version: 0.0
 os: linux
 files:
- - source: .
+ - source: /
    destination: /home/ubuntu/Anus
    overwrite: yes
+
+permissions:
+  - object: /
+    pattern : "**"
+    mode : 755
+    owner : ubuntu
+    group : ubuntu
+
 hooks:
   AfterInstall:
    - location: scripts/fetch_code.sh
