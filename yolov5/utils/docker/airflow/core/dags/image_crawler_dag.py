@@ -42,14 +42,14 @@ with DAG(
     # path = '/usr/src/Anus'
     t1 = BashOperator(
         task_id='collect_images',
-        bash_command= "sh /opt/bitnami/airflow/dags/test.sh ",
+        bash_command= "sh /opt/bitnami/airflow/dags/image_collector.sh ",
     )
 
     t2 = BashOperator(
-        task_id='sleep',
-        depends_on_past=False,
-        bash_command='sleep 5',
-        retries=3,
+        task_id='verify_images',
+        depends_on_past=True,
+        bash_command= "sh /opt/bitnami/airflow/dags/image_verifier.sh ",
+        # retries=3,
     )
     t1.doc_md = dedent(
         """\
@@ -62,23 +62,23 @@ with DAG(
     """
     )
 
-    dag.doc_md = __doc__  # providing that you have a docstring at the beginning of the DAG
-    dag.doc_md = """
-    This is a documentation placed anywhere
-    """  # otherwise, type it like this
-    templated_command = dedent(
-        """
-    {% for i in range(5) %}
-        echo "{{ ds }}"
-        echo "{{ macros.ds_add(ds, 7)}}"
-    {% endfor %}
-    """
-    )
+    # dag.doc_md = __doc__  # providing that you have a docstring at the beginning of the DAG
+    # dag.doc_md = """
+    # This is a documentation placed anywhere
+    # """  # otherwise, type it like this
+    # templated_command = dedent(
+    #     """
+    # {% for i in range(5) %}
+    #     echo "{{ ds }}"
+    #     echo "{{ macros.ds_add(ds, 7)}}"
+    # {% endfor %}
+    # """
+    # )
 
     t3 = BashOperator(
-        task_id='templated',
-        depends_on_past=False,
-        bash_command=templated_command,
+        task_id='crop_images',
+        depends_on_past=True,
+        bash_command= "sh /opt/bitnami/airflow/dags/image_cropper.sh ",
     )
 
-    t1 >> [t2, t3]
+    t1 >> t2 >> t3
