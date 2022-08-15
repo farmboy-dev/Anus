@@ -26,7 +26,8 @@ jobs:
           aws deploy create-deployment \
             --application-name test_cralwer \
             --deployment-group-name crawler-group \
-            --deployment-config-name CodeDeployDefault.OneAtATime
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
 
 
 
