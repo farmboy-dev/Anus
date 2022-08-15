@@ -23,8 +23,8 @@ jobs:
       # Step 2
       - name: Pull Codes
         run: aws deploy create-deployment --application-name test_cralwer \
-               --deployment-config-name CodeDeployDefault.OneAtATime \
-               --deployment-group-name crawler-group
+              --deployment-config-name CodeDeployDefault.OneAtATime \
+              --deployment-group-name crawler-group
 
 
 
