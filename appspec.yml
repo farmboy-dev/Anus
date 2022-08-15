@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
- - source: /home/ubuntu/Anus
+ - source: .
    destination: /home/ubuntu/Anus
    overwrite: yes
 hooks:
