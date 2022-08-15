@@ -31,6 +31,7 @@ services:
     volumes:
       - ./airflow/core/dags:/opt/bitnami/airflow/dags
       - ../../../../Anus:/usr/src/Anus
+      - ./airflow/core/sources/airflow.cfg:/opt/bitnami/airflow/airflow.cfg
       # - ./airflow/core/source:/bitnami/source
       
   airflow-scheduler:
@@ -46,6 +47,7 @@ services:
       - AIRFLOW_WEBSERVER_HOST=airflow
     volumes:
       - ./airflow/core/dags:/opt/bitnami/airflow/dags
+      - ./airflow/core/sources/airflow.cfg:/opt/bitnami/airflow/airflow.cfg
   airflow:
     image: bitnami/airflow:latest
     environment:
@@ -60,6 +62,7 @@ services:
       - AIRFLOW_EMAIL=user@example.com
     volumes:
       - ./airflow/core/dags:/opt/bitnami/airflow/dags
+      - ./airflow/core/sources/airflow.cfg:/opt/bitnami/airflow/airflow.cfg
     ports:
       - '8080:8080'
 volumes:
