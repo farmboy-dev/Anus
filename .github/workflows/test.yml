@@ -22,7 +22,8 @@ jobs:
           aws-region: us-east-1
       # Step 2
       - name: Pull Codes
-        run: aws deploy create-deployment \ 
+        run: | 
+          aws deploy create-deployment \ 
                --application-name test_cralwer \
                --deployment-config-name CodeDeployDefault.OneAtATime \
                --deployment-group-name crawler-group

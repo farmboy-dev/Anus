@@ -7,13 +7,13 @@ services:
       - POSTGRESQL_USERNAME=bn_airflow
       - POSTGRESQL_PASSWORD=bitnami1
     volumes:
-      - ./airflow/postgresql:/bitnami/postgresql
+      - ./postgresql:/bitnami/postgresql
   redis:
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - ./airflow/redis:/bitnami/redis
+      - ./redis:/bitnami/redis
   airflow-worker:
     # image: bitnami/airflow-worker:latest
     build:
@@ -63,7 +63,9 @@ services:
     ports:
       - '8080:8080'
 volumes:
-  airflow:
+  postgresql:
+    driver: local
+  redis:
     driver: local
 
     ## airflow 폴더 위치 설정 주의
