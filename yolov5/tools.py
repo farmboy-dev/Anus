@@ -27,7 +27,7 @@ class Crawler:
         # chrome_options.add_argument("--disable-infobars")
         # chrome_options.add_argument("--disable-dev-shm-usage")
 
-        self.driver =  webdriver.Chrome('./chromedriver', options = chrome_options)
+        self.driver =  webdriver.Chrome(options = chrome_options)
 
     def search(self, saved_img_dict, scroll = False):
         self.driver.maximize_window()
@@ -128,8 +128,8 @@ class DB:
     #     # sql = "INSERT INTO anus (name, image_url, s3_url, cropped_info) VALUES (%s, %s, %s, %s);"
     #     self.cur.execute(sql, (img_name, img_url, s3_url, cropped_info))
         
-    def update(self, keys, info):
-        sql = f"INSERT INTO anus ({keys}) VALUES ({(len(info)-1)*'%s,'}%s);"
+    def insert(self, table, keys, info):
+        sql = f"INSERT INTO {table} ({keys}) VALUES ({(len(info)-1)*'%s,'}%s);"
         # sql = "INSERT INTO anus (name, image_url, s3_url, cropped_info) VALUES (%s, %s, %s, %s);"
         self.cur.execute(sql, info)
 
@@ -151,8 +151,8 @@ class S3:
                 aws_secret_access_key=secret['aws_secret_access_key']
     		)
 
-    def upload(self, file, bucket):
-        self.s3_client.upload_file(f'./collected_images/images/{file}', f'{bucket}', f'img/{file}')
+    def upload(self, file, bucket, folder):
+        self.s3_client.upload_file(f'./collected_images/images/{file}', f'{bucket}', f'{folder}/{file}')
 
 
 #CREATE FUNCTION to send a slack message using webhook

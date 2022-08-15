@@ -665,27 +665,27 @@ class Detections:
                     temp_cropped_info.append([0] + list(value[0:4]))
                 # np.savetxt(r'./collected_images/labels/'+str(self.hash_img)+'.txt', temp_cropped_info, fmt='%i'+' %f'*4)
                 # np.savetxt(r'./collected_images/labels/'+str(self.hash_img)+'.txt', [[0] + list(self.pandas().xywhn[0].values[0][0:4])], fmt='%i'+' %f'*4)
-                idx = 0
+                # idx = 0
                 # for *box, _, _ in reversed(pred):
                 #     temp_filename = str(self.hash_img)+'_cropped'+str(idx)+'.jpg'
                 #     self.cropped_filelist.append(temp_filename)
                 #     save_one_box(box, im, file = f'./collected_images/images/{temp_filename}', save=True)
                 #     np.savetxt('./collected_images/labels/'+str(self.hash_img)+'_cropped'+str(idx)+'.txt', [[0, 0.5, 0.5, 1.0, 1.0]], fmt='%i'+' %f'*4)
                 #     idx += 1
-                for *box, conf, _ in reversed(pred):
-                    temp_filename = f'{str(self.hash_img)}_cropped_{str(idx)}_{conf*100:.0f}'
-                    self.cropped_filelist.append(temp_filename + '.jpg')
-                    cropped_img = save_one_box(box, im, file = f'./collected_images/images/{temp_filename}.jpg', save=True)
-                    self.image_size.append(cropped_img.shape[0:2]) 
-                    # np.savetxt(f'./collected_images/labels/{temp_filename}.txt', [[0, 0.5, 0.5, 1.0, 1.0]], fmt='%i'+' %f'*4)
-                    idx += 1
+                # for *box, conf, _ in reversed(pred):
+                #     temp_filename = f'{str(self.hash_img)}_cropped_{str(idx)}_{conf*100:.0f}'
+                #     self.cropped_filelist.append(temp_filename + '.jpg')
+                #     cropped_img = save_one_box(box, im, file = f'./collected_images/images/{temp_filename}.jpg', save=True)
+                #     self.image_size.append(cropped_img.shape[0:2]) 
+                #     # np.savetxt(f'./collected_images/labels/{temp_filename}.txt', [[0, 0.5, 0.5, 1.0, 1.0]], fmt='%i'+' %f'*4)
+                #     idx += 1
                 for c in pred[:, -1].unique():
                     n = (pred[:, -1] == c).sum()  # detections per class
                     s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
                 if show or save or render or crop:
                     annotator = Annotator(im, example=str(self.names))
                     for *box, conf, cls in reversed(pred):  # xyxy, confidence, class
-                        print(box)
+                        # print(box)
                         label = f'{self.names[int(cls)]} {conf:.2f}'
                         if crop:
                             file = save_dir / 'crops' / self.names[int(cls)] / self.files[i] if save else None
@@ -699,6 +699,8 @@ class Detections:
                         else:  # all others
                             annotator.box_label(box, label if labels else '', color=colors(cls))
                     im = annotator.im
+                    im = Image.fromarray(im.astype(np.uint8)) if isinstance(im, np.ndarray) else im  # from np
+                    im.save('./collected_images/images/'+str(self.hash_img)+'_box.jpg')
             else:
                 s += '(no detections)'
 
@@ -707,11 +709,12 @@ class Detections:
                 print(s.rstrip(', '))
             if show:
                 im.show(self.files[i])  # show
-            if save:
-                f = self.files[i]
-                im.save(save_dir / f)  # save
-                if i == self.n - 1:
-                    LOGGER.info(f"Saved {self.n} image{'s' * (self.n > 1)} to {colorstr('bold', save_dir)}")
+            # if save:
+            #     # f = self.files[i]
+            #     # im.save(save_dir / f)  # save
+            #     im.save('./collected_images/images/'+str(self.hash_img)+'_box.jpg')
+            #     # if i == self.n - 1:
+            #     #     LOGGER.info(f"Saved {self.n} image{'s' * (self.n > 1)} to {colorstr('bold', save_dir)}")
             if render:
                 self.imgs[i] = np.asarray(im)
         if crop:

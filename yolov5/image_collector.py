@@ -1,5 +1,3 @@
-from re import I
-from sqlalchemy import except_
 import torch
 import time
 import tools 
@@ -42,41 +40,42 @@ info = {}
 info['crawled_images'] = []
 
 count = 0
-for img_url in crawled_image_urls[0:10]:
+for img_url in crawled_image_urls[0:20]:
     try:
         result = model(img_url)
         if not str(result.hash_img) in saved_hash_dict:
             saved_hash_dict[str(result.hash_img)] = ''
-            result.display() # make a cropped image
+            result.display(save=True) # make a cropped image
             # saved_hash_dict[str(result.hash_img)] = ''
             cropped_info = []
-            for value, filename, size in zip(result.pandas().xywhn[0].values, result.cropped_filelist, result.image_size[1:]):
-                info['crawled_images'].append({
-                    "source": str(result.hash_img),
-                    "filename": filename,
-                    "image_url": img_url,
-                    "s3_url": f'https://anusimg.s3.amazonaws.com/img/{filename}',
-                    "cropped_info": [0, 0.5, 0.5, 1.0, 1.0],
-                    "iscropped": 1,
-                    "width": size[0],
-                    "height": size[1],
-                    "problem": 0,
-                    "disease": 0,
-                    "pass_quality": 0
-                    })
+            for value in result.pandas().xywhn[0].values:
                 cropped_info.append([0]+list(value[0:4]))
-                count +=1
+            # for value, filename, size in zip(result.pandas().xywhn[0].values, result.cropped_filelist, result.image_size[1:]):
+            #     info['crawled_images'].append({
+            #         "source": str(result.hash_img),
+            #         "filename": filename,
+            #         "image_url": img_url,
+            #         "s3_url": f'https://anusimg.s3.amazonaws.com/img/{filename}',
+            #         "cropped_info": [0, 0.5, 0.5, 1.0, 1.0],
+            #         "iscropped": 1,
+            #         "width": size[0],
+            #         "height": size[1],
+            #         "problem": 0,
+            #         "disease": 0,
+            #         "pass_quality": 0
+            #         })
+            #     cropped_info.append([0]+list(value[0:4]))
+            #     count +=1
             info['crawled_images'].append({
                     "source": str(result.hash_img),
-                    "filename": f'{result.hash_img}.jpg',
+                    # "filename": f'{result.hash_img}.jpg',
                     "image_url": img_url,
-                    "s3_url": f'https://anusimg.s3.amazonaws.com/img/{result.hash_img}.jpg',
+                    "s3_url": f'https://anusimg.s3.amazonaws.com/img_object/{result.hash_img}.jpg',
                     "cropped_info": cropped_info,
-                    "iscropped": 0,
                     "width": result.image_size[0][0],
                     "height": result.image_size[0][1],
-                    "problem": 0,
-                    "disease": 0,
+                    # "problem": 0,
+                    # "disease": 0,
                     "pass_quality": 0
                     })
             count +=1
