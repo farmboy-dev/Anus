@@ -5,6 +5,13 @@ files:
    destination: /home/ubuntu/Anus
    overwrite: yes
 file_exists_behavior: OVERWRITE
+permissions:
+  - object: /
+    pattern : "**"
+    mode : 755
+    owner : ubuntu
+    group : ubuntu
+
 hooks:
   AfterInstall:
    - location: scripts/fetch_code.sh
