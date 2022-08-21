@@ -16,7 +16,7 @@ It is a simple image crawler with Selenium, but its differentiation is that it c
 - Automation: Airflow </br>
 </details>
 
-<details open>
+<details>
 <summary>Install</summary>
 
 Clone repo and install requirements.txt
@@ -27,7 +27,7 @@ pip install -r requirements.txt  # install
 
 </details>
 
-<details open>
+<details>
 <summary>Collector</summary>
 If the object is detected -> Crawl the image
 
@@ -57,6 +57,6 @@ python ./yolov5/image_cropper.py
 ```
 </details>
 
-### <div align="Center"> Further Tasks </div>
+### <div> Further Tasks </div>
 1. Data Version Control
 2. Tracking a status of models (performace, reproducibility, etc)
