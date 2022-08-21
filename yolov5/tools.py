@@ -41,7 +41,7 @@ class Crawler:
         print(f"images in fully scrolled pages: {len(images)}")
         crawled_imgUrls = []
         count = 0
-        for image in images[0:10]: ##
+        for image in images: ##
             try:
                 image.click()
                 time.sleep(2)
@@ -111,15 +111,23 @@ class Crawler:
 #         return xywhn
 
 class DB:
+    
 
     def __init__(self, secret):
-        
+        keepalive_kwargs = {
+            "keepalives": 1,
+            "keepalives_idle": 60,
+            "keepalives_interval": 10,
+            "keepalives_count": 5
+            }
+        #https://www.roelpeters.be/error-ssl-syscall-error-eof-detected/
         self.conn = pg.connect(host=secret["host"],
                                      port=secret["port"],
                                      database=secret["database"], 
                                      user=secret["user"], 
                                      password=secret["password"], 
-                                     connect_timeout=3)
+                                    #  connect_timeout=3)
+                                    **keepalive_kwargs)
         self.cur = self.conn.cursor()
 
     # def update(self, img_name, file_name, img_url, cropped_info):

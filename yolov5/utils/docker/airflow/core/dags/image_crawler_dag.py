@@ -42,13 +42,13 @@ with DAG(
     # path = '/usr/src/Anus'
     t1 = BashOperator(
         task_id='collect_images',
-        bash_command= "sh /opt/bitnami/airflow/dags/image_collector.sh ",
+        bash_command= "sh /opt/bitnami/airflow/dags/collector.sh ",
     )
 
     t2 = BashOperator(
         task_id='verify_images',
-        depends_on_past=True,
-        bash_command= "sh /opt/bitnami/airflow/dags/image_verifier.sh ",
+        # depends_on_past=True,
+        bash_command= "sh /opt/bitnami/airflow/dags/verifier.sh ",
         # retries=3,
     )
     t1.doc_md = dedent(
@@ -77,8 +77,8 @@ with DAG(
 
     t3 = BashOperator(
         task_id='crop_images',
-        depends_on_past=True,
-        bash_command= "sh /opt/bitnami/airflow/dags/image_cropper.sh ",
+        # depends_on_past=True,
+        bash_command= "sh /opt/bitnami/airflow/dags/cropper.sh ",
     )
 
     t1 >> t2 >> t3

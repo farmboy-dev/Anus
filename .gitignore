@@ -29,5 +29,6 @@
 #weights
 *.pt
 
-/yolov5/utils/docker/airflow/postgresql/
-/yolov5/utils/docker/airflow/redis/
+/yolov5/utils/docker/postgresql/
+/yolov5/utils/docker/redis/
+

@@ -19,7 +19,7 @@ img_url_sql = "SELECT image_url FROM anus;"
 saved_img_dict = dict.fromkeys(np.array(DB.load(img_url_sql))[:,0], "")
 
 #get url of images               
-crawled_image_urls = tools.Crawler(search_info).search(saved_img_dict, scroll=False)
+crawled_image_urls = tools.Crawler(search_info).search(saved_img_dict, scroll=True)
 
 #load the model
 model = torch.hub.load('yolov5', 'custom', path='yolov5/runs/train/anal_results/weights/best.pt', source='local')
@@ -40,13 +40,13 @@ info = {}
 info['crawled_images'] = []
 
 count = 0
-for img_url in crawled_image_urls[0:20]:
+for img_url in crawled_image_urls:
     try:
         result = model(img_url)
         if not str(result.hash_img) in saved_hash_dict:
-            saved_hash_dict[str(result.hash_img)] = ''
-            result.display(save=True) # make a cropped image
             # saved_hash_dict[str(result.hash_img)] = ''
+            result.display(save=True) # make a cropped image
+            saved_hash_dict[str(result.hash_img)] = ''
             cropped_info = []
             for value in result.pandas().xywhn[0].values:
                 cropped_info.append([0]+list(value[0:4]))
@@ -102,6 +102,6 @@ with open(json_path, 'w') as outfile:
     json.dump(info, outfile)
     
 Slack_msg = tools.Slack(hidden.slack())
-crawler_message = {"text": f"total {count} images are crawled"}
+crawler_message = {"text": f"total {count} images are crawled: http://localhost:5001"}
 Slack_msg.send('crawler', crawler_message)
 # DB.conn.commit()

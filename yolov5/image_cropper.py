@@ -29,6 +29,7 @@ for img in passed_list['crawled_images']:
     img_file = cv2.imread(f'./collected_images/images/{img["source"]}.jpg', cv2.IMREAD_COLOR)
     DB.insert('anus', keys, list(img.values()))
     S3.upload(f'{img["source"]}.jpg', 'anusimg', 'img_object')
+    os.remove(f'./collected_images/images/{img["source"]}.jpg')
     count_obj += 1
     for idx, box in enumerate(xywh2xyxy(np.array(coordinates)[:,1:5], w, h)):
         file = f'./collected_images/images/{img["source"]}_cropped_{idx}.jpg'
@@ -36,6 +37,7 @@ for img in passed_list['crawled_images']:
         s3_url = f'https://anusimg.s3.amazonaws.com/img_cropped/{file[26:]}'
         DB.insert('cropped_anus', 'source, s3_url', [img['source'], s3_url])
         S3.upload(f'{file[26:]}', 'anusimg', 'img_cropped')
+        os.remove(file)
         count_cropped += 1
     if count_obj + count_cropped > 0 and (count_obj + count_cropped) % 100 == 0:
         print(f"saved images: obj | {count_obj}, cropped | {count_cropped}")
@@ -43,4 +45,8 @@ for img in passed_list['crawled_images']:
 
 DB.conn.commit()
 DB.conn.close()
-print(f"total saved images: obj | {count_obj}, cropped | {count_cropped}")
+Slack_msg = tools.Slack(hidden.slack())
+crawler_message = {"text": f"total saved images: obj | {count_obj}, cropped | {count_cropped}"}
+Slack_msg.send('crawler', crawler_message)
+
+

@@ -51,7 +51,7 @@ def display_img():
                 # DB.update(keys, list(info['crawled_images'][idx].values()))
            
             idx +=1
-               
+        os.remove(f'./collected_images/images/{anus_images[0]}')       
         del anus_images[0]
         
         print(len(anus_images))
@@ -61,6 +61,7 @@ def display_img():
             with open('./yolov5/info.json', 'w') as f:
                 json.dump(info, f)
             return redirect('/shutdown')
+            # return 'Labeling is done'
         else:
             return render_template("home.html", image = anus_images[0])
     elif request.method == 'GET':
@@ -68,6 +69,6 @@ def display_img():
 
     # return render_template("home.html", image = image)
 if __name__ == '__main__':
-    app.run(port=5001)   
+    app.run(host='0.0.0.0', port=5001)   
     
 
