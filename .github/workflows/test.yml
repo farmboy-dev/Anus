@@ -3,8 +3,7 @@ on:
   push:
     branches: [ main ]
   paths-ignore:
-    - '**.md'
-    - '**.jpg'
+    - '**/README.md'
 jobs:
   updatecode:
     runs-on: ubuntu-latest
