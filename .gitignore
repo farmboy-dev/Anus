@@ -32,3 +32,4 @@
 /yolov5/utils/docker/postgresql/
 /yolov5/utils/docker/redis/
 
+!automated crawler.jpg

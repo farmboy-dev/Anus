@@ -2,6 +2,9 @@ name: update codes
 on:
   push:
     branches: [ main ]
+  paths-ignore:
+    - '**.md'
+    - '**.jpg'
 jobs:
   updatecode:
     runs-on: ubuntu-latest
